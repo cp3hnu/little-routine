@@ -3,17 +3,27 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(keys.filter((k) => k !== "little-routine-v7").map((k) => caches.delete(k)));
+      await self.clients.claim();
+    })(),
+  );
 });
 
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
   event.respondWith(
-    caches.open("early-rise-v1").then(async (cache) => {
+    caches.open("little-routine-v7").then(async (cache) => {
       try {
         const network = await fetch(req);
-        if (req.url.includes("/_next/static/") || req.url.endsWith(".webmanifest")) {
+        if (
+          req.url.includes("/_next/static/") ||
+          req.url.includes(".webmanifest") ||
+          req.url.includes("/icons/")
+        ) {
           cache.put(req, network.clone());
         }
         return network;

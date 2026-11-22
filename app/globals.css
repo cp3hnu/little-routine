@@ -521,3 +521,313 @@ a {
   padding: 0.85rem 0.6rem;
   opacity: 0.85;
 }
+
+/* —— Auth —— */
+.auth-shell {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+.auth-shell-toggles {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+}
+
+.auth-shell-main {
+  min-height: 100dvh;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.auth-screen {
+  position: relative;
+  width: min(100%, 440px);
+  margin: 0 auto;
+  padding: 4.5rem 1.35rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.75rem;
+  animation: auth-enter 0.55s ease both;
+}
+
+.auth-sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.auth-glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(40px);
+  opacity: 0.7;
+}
+
+.auth-glow-a {
+  width: 280px;
+  height: 280px;
+  top: -60px;
+  left: -40px;
+  background: radial-gradient(circle, #c4b5fd 0%, transparent 70%);
+  animation: auth-drift 9s ease-in-out infinite alternate;
+}
+
+.auth-glow-b {
+  width: 240px;
+  height: 240px;
+  top: 40px;
+  right: -50px;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 72%);
+  opacity: 0.35;
+  animation: auth-drift 11s ease-in-out infinite alternate-reverse;
+}
+
+.auth-arc {
+  position: absolute;
+  top: 5.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(72%, 260px);
+  height: 56px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.auth-arc-line {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 10px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f59e0b, #a855f7, #4c1d95);
+  opacity: 0.55;
+}
+
+.auth-arc-dot {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 6px color-mix(in oklab, white 55%, transparent);
+}
+
+.auth-arc-dot.wake {
+  background: radial-gradient(circle at 35% 35%, #fde68a, #f59e0b 70%);
+  animation: auth-pulse 2.8s ease-in-out infinite;
+}
+
+.auth-arc-dot.sleep {
+  background: radial-gradient(circle at 35% 35%, #ddd6fe, #6d28d9 70%);
+  animation: auth-pulse 2.8s ease-in-out infinite 0.6s;
+}
+
+.auth-hero,
+.auth-form,
+.auth-switch {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-hero {
+  text-align: center;
+  padding-top: 3.2rem;
+}
+
+.auth-kicker {
+  margin: 0 0 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.auth-brand {
+  margin: 0;
+  font-size: clamp(2.4rem, 10vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--ink);
+  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 45%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dark .auth-brand {
+  background: linear-gradient(135deg, #f5e9ff 0%, #c4b5fd 50%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.auth-tagline {
+  margin: 0.7rem 0 0;
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.auth-label {
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--muted);
+  padding-left: 0.15rem;
+}
+
+.auth-input {
+  width: 100%;
+  border: 0;
+  border-radius: 1.1rem;
+  background: color-mix(in oklab, var(--bg-elevated) 88%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklab, var(--accent) 18%, transparent),
+    0 10px 28px rgba(88, 28, 135, 0.06);
+  color: var(--ink);
+  padding: 0.95rem 1.05rem;
+  font-size: 1.02rem;
+  font-weight: 550;
+  outline: none;
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.auth-input::placeholder {
+  color: color-mix(in oklab, var(--muted) 70%, transparent);
+  font-weight: 500;
+}
+
+.auth-input:focus {
+  box-shadow:
+    inset 0 0 0 1.5px var(--accent),
+    0 12px 32px rgba(124, 58, 237, 0.14);
+  transform: translateY(-1px);
+}
+
+.auth-error {
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.9rem;
+  background: color-mix(in oklab, #ef4444 12%, var(--bg-elevated));
+  color: #b91c1c;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.dark .auth-error {
+  color: #fecaca;
+}
+
+.auth-submit {
+  margin-top: 0.35rem;
+  width: 100%;
+  border: 0;
+  border-radius: 999px;
+  padding: 1rem 1.2rem;
+  font-size: 1.05rem;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 55%, #5b21b6 100%);
+  box-shadow: 0 16px 34px rgba(91, 33, 182, 0.35);
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-submit:hover:not(:disabled) {
+  box-shadow: 0 18px 40px rgba(91, 33, 182, 0.42);
+}
+
+.auth-submit:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.auth-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.dark .auth-submit {
+  color: #120b1c;
+  background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 55%, #a78bfa 100%);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
+}
+
+.auth-switch {
+  margin: 0;
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.auth-switch-link {
+  font-weight: 750;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid color-mix(in oklab, var(--accent) 45%, transparent);
+}
+
+.auth-switch-link:hover {
+  border-bottom-color: var(--accent);
+}
+
+@keyframes auth-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes auth-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(18px, 12px, 0);
+  }
+}
+
+@keyframes auth-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-screen,
+  .auth-glow-a,
+  .auth-glow-b,
+  .auth-arc-dot {
+    animation: none;
+  }
+}

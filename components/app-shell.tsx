@@ -26,6 +26,7 @@ export function AppShell({
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const isAuth = pathname === "/login" || pathname === "/register";
 
   useEffect(() => setMounted(true), []);
 
@@ -56,20 +57,33 @@ export function AppShell({
     void persist(undefined, next);
   }
 
+  const toggles = (
+    <div className="flex shrink-0 items-center gap-2">
+      <button type="button" className="header-toggle" onClick={toggleLocale} aria-label={t.language}>
+        {locale === "zh" ? "中文" : "EN"}
+      </button>
+      <button type="button" className="header-toggle" onClick={toggleTheme} aria-label={t.theme}>
+        {isDark ? "☾" : "☀"}
+      </button>
+    </div>
+  );
+
+  if (isAuth) {
+    return (
+      <div className="auth-shell">
+        <div className="auth-shell-toggles">{toggles}</div>
+        <main className="auth-shell-main">{children}</main>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto flex min-h-screen max-w-3xl flex-col px-4 pb-28 pt-4">
       <header className="mb-4 flex items-center justify-between gap-3">
         <div className="min-w-0">
           <p className="truncate text-lg font-bold tracking-tight">{t.appName}</p>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <button type="button" className="header-toggle" onClick={toggleLocale} aria-label={t.language}>
-            {locale === "zh" ? "中文" : "EN"}
-          </button>
-          <button type="button" className="header-toggle" onClick={toggleTheme} aria-label={t.theme}>
-            {isDark ? "☾" : "☀"}
-          </button>
-        </div>
+        {toggles}
       </header>
 
       <main className="flex-1">{children}</main>
