@@ -863,3 +863,310 @@ a {
     animation: none;
   }
 }
+
+/* —— Landing / marketing —— */
+
+.landing-shell {
+  min-height: 100vh;
+}
+
+.landing-shell-toggles {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+}
+
+.landing {
+  position: relative;
+  margin: 0 auto;
+  max-width: 42rem;
+  padding: 1.25rem 1.25rem 3.5rem;
+  overflow: hidden;
+}
+
+.landing-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding-right: 3rem;
+  animation: landing-rise 0.7s ease both;
+}
+
+.landing-brand {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.landing-brand-primary {
+  font-size: clamp(1.85rem, 6vw, 2.45rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.landing-brand-secondary {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.landing-lang {
+  flex-shrink: 0;
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  border-bottom: 1.5px solid color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+.landing-lang:hover {
+  border-bottom-color: var(--accent);
+}
+
+.landing-hero {
+  position: relative;
+  margin-bottom: 3.25rem;
+  padding: 0.5rem 0 0.25rem;
+  animation: landing-rise 0.75s ease 0.08s both;
+}
+
+.landing-hero-glow {
+  position: absolute;
+  inset: -20% -10% auto;
+  height: 14rem;
+  background:
+    radial-gradient(closest-side, color-mix(in oklab, var(--wake) 28%, transparent), transparent 70%),
+    radial-gradient(closest-side at 80% 40%, color-mix(in oklab, var(--sleep) 22%, transparent), transparent 68%);
+  filter: blur(8px);
+  pointer-events: none;
+  animation: landing-glow 8s ease-in-out infinite alternate;
+}
+
+.landing-hero-orbit {
+  position: absolute;
+  right: 0;
+  top: 0.5rem;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 999px;
+  border: 1px dashed color-mix(in oklab, var(--border) 80%, transparent);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.landing-orbit-wake,
+.landing-orbit-sleep {
+  position: absolute;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+}
+
+.landing-orbit-wake {
+  top: -0.2rem;
+  left: 50%;
+  background: var(--wake);
+  box-shadow: 0 0 16px color-mix(in oklab, var(--wake) 55%, transparent);
+  animation: landing-orbit 10s linear infinite;
+}
+
+.landing-orbit-sleep {
+  bottom: -0.15rem;
+  left: 18%;
+  background: var(--sleep);
+  box-shadow: 0 0 16px color-mix(in oklab, var(--sleep) 45%, transparent);
+  animation: landing-orbit 10s linear infinite reverse;
+}
+
+.landing-headline {
+  position: relative;
+  margin: 0 0 0.85rem;
+  max-width: 16ch;
+  font-size: clamp(1.65rem, 5.2vw, 2.15rem);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.landing-subhead {
+  position: relative;
+  margin: 0 0 1.5rem;
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.landing-cta {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.landing-cta-primary {
+  min-width: 8.5rem;
+}
+
+.landing-cta-secondary {
+  background: color-mix(in oklab, var(--bg-elevated) 70%, transparent);
+  border-color: var(--border);
+  color: var(--ink);
+}
+
+.landing-cta-secondary:hover {
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--border));
+}
+
+.landing-section {
+  margin-bottom: 2.75rem;
+  animation: landing-rise 0.75s ease 0.16s both;
+}
+
+.landing-section-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.2rem;
+  font-weight: 750;
+  letter-spacing: -0.015em;
+}
+
+.landing-section-lead {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.landing-feature-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.landing-feature {
+  padding: 0.15rem 0 0.85rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+}
+
+.landing-feature:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.landing-feature-title {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.landing-feature-body {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.landing-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.landing-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+}
+
+.landing-step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 750;
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.landing-footer {
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  animation: landing-rise 0.75s ease 0.24s both;
+}
+
+.landing-footer p {
+  margin: 0 0 0.55rem;
+}
+
+.landing-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 650;
+}
+
+.landing-footer-links a {
+  color: var(--accent);
+}
+
+@keyframes landing-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes landing-glow {
+  from {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes landing-orbit {
+  from {
+    transform: rotate(0deg) translateX(2.4rem) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(2.4rem) rotate(-360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-top,
+  .landing-hero,
+  .landing-section,
+  .landing-footer,
+  .landing-hero-glow,
+  .landing-orbit-wake,
+  .landing-orbit-sleep {
+    animation: none;
+  }
+}

@@ -1,15 +1,20 @@
-import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { getSessionUser, getUserFamily } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { children } from "@/lib/db/schema";
 import { HomeCheckin } from "@/components/home-checkin";
+import { LandingPage } from "@/components/landing-page";
+import { landingMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = landingMetadata("zh");
+
 export default async function HomePage() {
-  const user = await getSessionUser();
-  if (!user) redirect("/login");
+  const user = await getSessionUser().catch(() => null);
+  if (!user) {
+    return <LandingPage locale="zh" />;
+  }
 
   const family = await getUserFamily(user.id);
   const db = await getDb();

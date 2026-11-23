@@ -4,8 +4,11 @@ import { getSessionUser, getUserFamily } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { children } from "@/lib/db/schema";
 import { StatsPanel } from "@/components/stats-panel";
+import { noIndexMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = noIndexMetadata("统计");
 
 export default async function StatsPage() {
   const user = await getSessionUser();

@@ -27,6 +27,7 @@ export function AppShell({
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const isAuth = pathname === "/login" || pathname === "/register";
+  const isMarketing = pathname === "/en" || (pathname === "/" && !showNav);
 
   useEffect(() => setMounted(true), []);
 
@@ -67,6 +68,19 @@ export function AppShell({
       </button>
     </div>
   );
+
+  if (isMarketing) {
+    return (
+      <div className="landing-shell">
+        <div className="landing-shell-toggles">
+          <button type="button" className="header-toggle" onClick={toggleTheme} aria-label={t.theme}>
+            {isDark ? "☾" : "☀"}
+          </button>
+        </div>
+        <main>{children}</main>
+      </div>
+    );
+  }
 
   if (isAuth) {
     return (

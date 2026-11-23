@@ -5,11 +5,17 @@ import { LocaleProvider } from "@/components/locale-provider";
 import { AppShell } from "@/components/app-shell";
 import { PwaRegister } from "@/components/pwa-register";
 import type { Locale } from "@/lib/i18n/dictionaries";
+import { SITE_NAME, SITE_NAME_ZH, SITE_URL, seoCopy } from "@/lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "小小作息 | Little Routine",
-  description: "Track kids wake and sleep times with monthly and yearly AI reports",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME_ZH}`,
+  },
+  description: seoCopy.zh.description,
+  applicationName: SITE_NAME_ZH,
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
@@ -22,7 +28,22 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "小小作息",
+    title: SITE_NAME_ZH,
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: seoCopy.zh.title,
+    description: seoCopy.zh.description,
+    url: SITE_URL,
+    locale: seoCopy.zh.ogLocale,
+    images: [{ url: "/icons/icon-512.png", width: 512, height: 512, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: "summary",
+    title: seoCopy.zh.title,
+    description: seoCopy.zh.description,
+    images: ["/icons/icon-512.png"],
   },
 };
 

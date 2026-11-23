@@ -4,8 +4,11 @@ import { getSessionUser, getUserFamily } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { children } from "@/lib/db/schema";
 import { SettingsPanel } from "@/components/settings-panel";
+import { noIndexMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = noIndexMetadata("设置");
 
 export default async function SettingsPage() {
   const user = await getSessionUser();
