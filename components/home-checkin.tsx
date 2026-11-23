@@ -14,7 +14,7 @@ import {
   isWakeWindow,
   sleepLogDate,
   wakeLogDate,
-  type CheckinMode,
+  type CheckinMode
 } from "@/lib/period";
 
 type Child = {
@@ -44,18 +44,14 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
   const [flash, setFlash] = useState("");
 
   const mode: CheckinMode = now ? getCheckinMode(now) : "none";
-  const child = childrenList.find((c) => c.id === childId) || childrenList[0];
+  const child = childrenList.find(c => c.id === childId) || childrenList[0];
   const wakeDate = now ? wakeLogDate(now) : "";
   const sleepDate = now ? sleepLogDate(now) : "";
   const wakeAt = wakeLog?.wakeAt ?? null;
   const sleepAt = sleepLog?.sleepAt ?? null;
   const canWakeEdit = mounted && !!now && (!!wakeAt || isWakeWindow(now));
   const canSleepEdit = mounted && !!now && (!!sleepAt || isSleepWindow(now));
-  const canCheckin =
-    mounted &&
-    !!now &&
-    ((mode === "wake" && !wakeAt) || (mode === "sleep" && !sleepAt)) &&
-    !saving;
+  const canCheckin = mounted && !!now && ((mode === "wake" && !wakeAt) || (mode === "sleep" && !sleepAt)) && !saving;
 
   const loadLog = useCallback(async (id: string, localDate: string) => {
     const res = await fetch(`/api/sleep-logs?childId=${id}&start=${localDate}&end=${localDate}`);
@@ -92,7 +88,7 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
   }, [childId, wakeDate, sleepDate, loadLog]);
 
   useEffect(() => {
-    if (childrenList.length && !childrenList.some((c) => c.id === childId)) {
+    if (childrenList.length && !childrenList.some(c => c.id === childId)) {
       setChildId(childrenList[0].id);
     }
   }, [childrenList, childId]);
@@ -100,7 +96,7 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
   if (!childrenList.length) {
     return (
       <div className="card space-y-4 p-6 text-center">
-        <p className="text-[var(--muted)]">{t.noChildren}</p>
+        <p className="text-(--muted)">{t.noChildren}</p>
         <Link href="/settings" className="btn btn-primary">
           {t.goSettings}
         </Link>
@@ -117,8 +113,8 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
     const body = {
       childId: child.id,
       localDate,
-      wakeAt: kind === "wake" ? time : existing?.wakeAt ?? null,
-      sleepAt: kind === "sleep" ? time : existing?.sleepAt ?? null,
+      wakeAt: kind === "wake" ? time : (existing?.wakeAt ?? null),
+      sleepAt: kind === "sleep" ? time : (existing?.sleepAt ?? null)
     };
     if (wakeDate === sleepDate && wakeLog) {
       body.wakeAt = kind === "wake" ? time : wakeLog.wakeAt;
@@ -127,7 +123,7 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
     const res = await fetch("/api/sleep-logs", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      body: JSON.stringify(body)
     });
     setSaving(false);
     if (!res.ok) return;
@@ -135,7 +131,7 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
     const next: SleepLog = {
       localDate,
       wakeAt: body.wakeAt,
-      sleepAt: body.sleepAt,
+      sleepAt: body.sleepAt
     };
     if (kind === "wake") {
       setWakeLog(next);
@@ -182,7 +178,7 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
           year: "numeric",
           month: "long",
           day: "numeric",
-          weekday: "short",
+          weekday: "short"
         })
       : "\u00A0";
 
@@ -210,13 +206,11 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
             <div className="clock-time mt-2 text-[clamp(2.6rem,12vw,3.6rem)]" suppressHydrationWarning>
               {clockText}
             </div>
-            <div className="mt-2 text-sm font-medium opacity-85">
-              {canCheckin ? t.tapToCheckin : alreadyDone ? t.recordedAt : "\u00A0"}
-            </div>
+            <div className="mt-2 text-sm font-medium opacity-85">{canCheckin ? t.tapToCheckin : "\u00A0"}</div>
           </div>
         </button>
 
-        {flash ? <p className="text-sm font-semibold text-[var(--ok)]">{flash}</p> : null}
+        {flash ? <p className="text-sm font-semibold text-(--ok)">{flash}</p> : null}
 
         <div className="mt-6 grid w-full max-w-sm grid-cols-2 gap-3">
           <StatusChip
@@ -238,11 +232,7 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
         </div>
       </section>
 
-      <Modal
-        open={editOpen}
-        title={editKind === "wake" ? t.wake : t.sleep}
-        onClose={() => setEditOpen(false)}
-      >
+      <Modal open={editOpen} title={editKind === "wake" ? t.wake : t.sleep} onClose={() => setEditOpen(false)}>
         <div className="space-y-3">
           <div>
             <label className="label">{t.pickTime}</label>
@@ -265,12 +255,7 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
 function EditIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M4 20h4.5L19 9.5 14.5 5 4 15.5V20z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinejoin="round"
-      />
+      <path d="M4 20h4.5L19 9.5 14.5 5 4 15.5V20z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
       <path d="M12.5 7.5l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
@@ -282,7 +267,7 @@ function StatusChip({
   tone,
   editLabel,
   canEdit,
-  onEdit,
+  onEdit
 }: {
   label: string;
   value: string | null | undefined;

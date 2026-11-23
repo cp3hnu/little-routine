@@ -23,13 +23,6 @@ type Report = {
     longestWakeStreak: number;
     longestSleepStreak: number;
   };
-  narrative: {
-    summary: string;
-    highlights: string[];
-    suggestions: string[];
-    encouragement: string;
-    source: string;
-  };
 };
 
 function daysInMonth(year: number, month: number) {
@@ -137,7 +130,7 @@ export function StatsPanel({ childrenList }: { childrenList: Child[] }) {
   }, [logs, child]);
 
   if (!childrenList.length) {
-    return <div className="card p-6 text-[var(--muted)]">{t.noChildren}</div>;
+    return <div className="card p-6 text-(--muted)">{t.noChildren}</div>;
   }
 
   const totalDays = daysInMonth(year, month);
@@ -199,8 +192,8 @@ export function StatsPanel({ childrenList }: { childrenList: Child[] }) {
                 disabled={isFuture}
               >
                 <div className="soft-cal-day">{day}</div>
-                <div className={`soft-cal-value${!wake ? " empty" : ""}`}>{wake || "—"}</div>
-                <div className={`soft-cal-value secondary${!sleep ? " empty" : ""}`}>
+                <div className={`soft-cal-value wake${!wake ? " empty" : ""}`}>{wake || "—"}</div>
+                <div className={`soft-cal-value sleep${!sleep ? " empty" : ""}`}>
                   {sleep || "—"}
                 </div>
               </button>
@@ -219,19 +212,33 @@ export function StatsPanel({ childrenList }: { childrenList: Child[] }) {
           <Stat label={t.wakeRate} value={`${wakeRate}%`} />
           <Stat label={t.sleepRate} value={`${sleepRate}%`} />
         </div>
+        <p className="text-sm font-medium text-(--accent)">{t.encouragement}</p>
+      </section>
 
-        {report?.narrative ? (
-          <div className="space-y-2 border-t border-[var(--border)] pt-3">
-            <p className="text-sm text-[var(--muted)]">{report.narrative.summary}</p>
-            <h3 className="text-sm font-semibold">{t.suggestions}</h3>
-            <ul className="list-disc space-y-1 pl-5 text-sm">
-              {report.narrative.suggestions.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-            </ul>
-            <p className="text-sm font-medium text-[var(--accent)]">{report.narrative.encouragement}</p>
-          </div>
-        ) : null}
+      <section className="card space-y-3 p-5">
+        <div>
+          <h3 className="text-sm font-semibold">{t.recommendedSchedule}</h3>
+          <p className="mt-1 text-sm text-(--muted)">{t.recommendedScheduleHint}</p>
+        </div>
+        <ul className="space-y-2">
+          <li className="schedule-row">
+            <div className="schedule-row-title">{t.schedulePrimary}</div>
+            <div className="schedule-row-detail">{t.schedulePrimaryDetail}</div>
+          </li>
+          <li className="schedule-row">
+            <div className="schedule-row-title">{t.scheduleJunior}</div>
+            <div className="schedule-row-detail">{t.scheduleJuniorDetail}</div>
+          </li>
+          <li className="schedule-row">
+            <div className="schedule-row-title">{t.scheduleSenior}</div>
+            <div className="schedule-row-detail">{t.scheduleSeniorDetail}</div>
+          </li>
+        </ul>
+        <ul className="list-disc space-y-1 border-t border-(--border) pt-3 pl-5 text-sm text-(--muted)">
+          <li>{t.scheduleTip1}</li>
+          <li>{t.scheduleTip2}</li>
+          <li>{t.scheduleTip3}</li>
+        </ul>
       </section>
 
       <Modal
@@ -278,8 +285,8 @@ export function StatsPanel({ childrenList }: { childrenList: Child[] }) {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-[var(--accent-soft)] p-3">
-      <div className="text-xs text-[var(--muted)]">{label}</div>
+    <div className="rounded-2xl bg-(--accent-soft) p-3">
+      <div className="text-xs text-(--muted)">{label}</div>
       <div className="text-xl font-bold tabular-nums">{value}</div>
     </div>
   );

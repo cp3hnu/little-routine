@@ -47,18 +47,39 @@ function fallbackNarrative(metrics: PeriodMetrics, locale: string): ReportNarrat
   if (metrics.sleepRate < 70) {
     suggestions.push(
       zh
-        ? "睡前 30 分钟关掉屏幕，按目标时间提前准备入睡。"
-        : "Turn screens off 30 minutes before bedtime and wind down toward the target time.",
+        ? "睡前 30–60 分钟关掉屏幕，提前洗漱、调暗灯光，按目标时间慢慢入睡。"
+        : "Dim screens 30–60 minutes before bed, finish wind-down early, and ease into the target bedtime.",
+    );
+    suggestions.push(
+      zh
+        ? "对照中小学生睡眠建议核对目标：小学约 21:00、初中约 21:30、高中约 22:00 就寝。"
+        : "Check bedtime against school guidelines: ~21:00 (primary), ~21:30 (middle), ~22:00 (high school).",
     );
   }
   if (metrics.wakeRate < 70) {
     suggestions.push(
-      zh ? "起床后先完成一件小事（喝水/拉开窗帘）建立仪式感。" : "Build a tiny morning ritual right after waking.",
+      zh
+        ? "起床后先拉开窗帘、喝杯温水，用固定小仪式帮助准时起床。"
+        : "Open curtains and drink water right after waking to anchor an on-time morning ritual.",
+    );
+  }
+  if (metrics.avgSleepMinutes != null && metrics.avgSleepMinutes < 8 * 60) {
+    suggestions.push(
+      zh
+        ? "近期平均睡眠偏少，优先保证连续睡眠时长，再微调起床或睡觉目标。"
+        : "Average sleep looks short — protect continuous sleep hours before tightening wake/bed targets.",
     );
   }
   if (!suggestions.length) {
     suggestions.push(
-      zh ? "继续保持当前节奏，周末也尽量贴近目标时间。" : "Keep the current rhythm, even on weekends.",
+      zh
+        ? "继续保持当前节奏；周末作息波动尽量控制在 1 小时以内。"
+        : "Keep the current rhythm; try to keep weekend drift within about an hour.",
+    );
+    suggestions.push(
+      zh
+        ? "可定期对照推荐作息：小学 ≥10 小时、初中 ≥9 小时、高中 ≥8 小时睡眠。"
+        : "Revisit the guide: primary ≥10h, middle ≥9h, high school ≥8h of sleep.",
     );
   }
 
@@ -107,7 +128,9 @@ export async function generateNarrative(
   const system = `You are a warm parenting coach writing sleep routine reports for children.
 Only use the provided metrics. Never invent numbers.
 Return ONLY valid JSON with keys: title, summary, highlights (array), suggestions (array), encouragement.
-Write in ${lang}. Keep tone encouraging and age-appropriate for parents reading with kids.`;
+Write in ${lang}. Keep tone encouraging and age-appropriate for parents reading with kids.
+Suggestions should be practical (2-4 items): bedtime wind-down, morning rituals, weekend consistency.
+When helpful, briefly reference school sleep guidelines (primary ≥10h / ~21:00 bed; middle ≥9h / ~21:30; high school ≥8h / ~22:00).`;
 
   try {
     const res = await fetch(`${env.QWEN_BASE_URL}/chat/completions`, {

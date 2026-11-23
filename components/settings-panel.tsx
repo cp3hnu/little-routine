@@ -153,17 +153,17 @@ export function SettingsPanel({
         </div>
 
         {!children?.length ? (
-          <p className="text-sm text-[var(--muted)]">{t.noChildren}</p>
+          <p className="text-sm text-(--muted)">{t.noChildren}</p>
         ) : (
           <ul className="space-y-2">
             {children.map((child) => (
               <li
                 key={child.id}
-                className="flex items-center justify-between gap-3 rounded-2xl border border-[var(--border)] px-3 py-3"
+                className="flex items-center justify-between gap-3 rounded-2xl border border-(--border) px-3 py-3"
               >
                 <div>
                   <div className="font-semibold">{child.name}</div>
-                  <div className="text-xs text-[var(--muted)]">
+                  <div className="text-xs text-(--muted)">
                     {t.wake} {child.targetWakeTime} · {t.sleep} {child.targetSleepTime}
                   </div>
                 </div>
@@ -187,11 +187,11 @@ export function SettingsPanel({
 
       <section className="card space-y-3 p-5">
         <h2 className="font-semibold">{t.push}</h2>
-        <p className="text-sm text-[var(--muted)]">{t.installHint}</p>
+        <p className="text-sm text-(--muted)">{t.installHint}</p>
         <button type="button" className="btn btn-primary" onClick={enablePush}>
           {t.enablePush}
         </button>
-        {pushStatus ? <p className="text-sm text-[var(--muted)]">{pushStatus}</p> : null}
+        {pushStatus ? <p className="text-sm text-(--muted)">{pushStatus}</p> : null}
         {children[0] ? (
           <div className="flex items-end gap-3">
             <div className="flex-1">

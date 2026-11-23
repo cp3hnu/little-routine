@@ -89,7 +89,7 @@ export function AppShell({
       <main className="flex-1">{children}</main>
 
       {showNav ? (
-        <nav className="fixed inset-x-0 bottom-0 border-t border-[var(--border)] bg-[color-mix(in_oklab,var(--bg-elevated)_90%,transparent)] backdrop-blur-md">
+        <nav className="fixed inset-x-0 bottom-0 border-t border-(--border) bg-[color-mix(in_oklab,var(--bg-elevated)_90%,transparent)] backdrop-blur-md">
           <div className="mx-auto grid max-w-3xl grid-cols-3 gap-1 px-3 py-2">
             {links.map((link) => {
               const active =
@@ -99,7 +99,7 @@ export function AppShell({
                   key={link.href}
                   href={link.href}
                   className={`rounded-2xl px-2 py-2.5 text-center text-sm font-semibold ${
-                    active ? "bg-[var(--accent-soft)] text-[var(--accent)]" : "text-[var(--muted)]"
+                    active ? "bg-(--accent-soft) text-(--accent)" : "text-(--muted)"
                   }`}
                 >
                   {t[link.key]}

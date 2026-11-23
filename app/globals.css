@@ -395,19 +395,51 @@ a {
   margin-top: 0.15rem;
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--accent);
   font-variant-numeric: tabular-nums;
   line-height: 1.15;
 }
 
-.soft-cal-value.secondary {
-  font-size: 0.7rem;
-  font-weight: 650;
-  opacity: 0.85;
+.soft-cal-value.wake {
+  color: color-mix(in oklab, var(--wake) 78%, white);
+  font-weight: 700;
+}
+
+.soft-cal-value.sleep {
+  color: color-mix(in oklab, var(--sleep) 88%, black);
+  font-weight: 750;
+}
+
+.dark .soft-cal-value.wake {
+  color: color-mix(in oklab, var(--wake) 88%, white);
+}
+
+.dark .soft-cal-value.sleep {
+  color: color-mix(in oklab, var(--sleep) 55%, var(--accent));
 }
 
 .soft-cal-value.empty {
   font-weight: 500;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.schedule-row {
+  border-radius: 1rem;
+  background: var(--accent-soft);
+  padding: 0.75rem 0.9rem;
+}
+
+.schedule-row-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.schedule-row-detail {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--muted);
 }
 
 .soft-cal-footer {
