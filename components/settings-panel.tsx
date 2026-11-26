@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useI18n } from "./locale-provider";
 import { Modal } from "./modal";
+import { EmptyChildren } from "./empty-children";
 import { TimePicker } from "./time-picker";
 
 type Child = {
@@ -144,17 +145,16 @@ export function SettingsPanel({
 
   return (
     <div className="space-y-4">
-      <section className="card space-y-3 p-5">
-        <div className="flex items-center justify-between gap-2">
-          <h2 className="font-semibold">{t.childrenSection}</h2>
-          <button type="button" className="btn btn-primary" onClick={openAdd}>
-            {t.addChild}
-          </button>
-        </div>
-
-        {!children?.length ? (
-          <p className="text-sm text-(--muted)">{t.noChildren}</p>
-        ) : (
+      {!children?.length ? (
+        <EmptyChildren onCta={openAdd} ctaLabel={t.addChild} />
+      ) : (
+        <section className="card space-y-3 p-5">
+          <div className="flex items-center justify-between gap-2">
+            <h2 className="font-semibold">{t.childrenSection}</h2>
+            <button type="button" className="btn btn-primary" onClick={openAdd}>
+              {t.addChild}
+            </button>
+          </div>
           <ul className="space-y-2">
             {children.map((child) => (
               <li
@@ -182,8 +182,8 @@ export function SettingsPanel({
               </li>
             ))}
           </ul>
-        )}
-      </section>
+        </section>
+      )}
 
       <section className="card space-y-3 p-5">
         <h2 className="font-semibold">{t.push}</h2>

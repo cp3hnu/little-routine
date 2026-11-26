@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useI18n } from "./locale-provider";
 import { Modal } from "./modal";
 import { ChildTabs } from "./child-tabs";
+import { EmptyChildren } from "./empty-children";
 import { TimePicker } from "./time-picker";
 import { monthKey, todayLocal } from "@/lib/period";
 
@@ -130,7 +131,7 @@ export function StatsPanel({ childrenList }: { childrenList: Child[] }) {
   }, [logs, child]);
 
   if (!childrenList.length) {
-    return <div className="card p-6 text-(--muted)">{t.noChildren}</div>;
+    return <EmptyChildren />;
   }
 
   const totalDays = daysInMonth(year, month);

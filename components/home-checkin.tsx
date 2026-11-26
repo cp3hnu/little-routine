@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useI18n } from "./locale-provider";
 import { Modal } from "./modal";
 import { ChildTabs } from "./child-tabs";
+import { EmptyChildren } from "./empty-children";
 import { TimePicker } from "./time-picker";
 import {
   formatHm,
@@ -94,14 +94,7 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
   }, [childrenList, childId]);
 
   if (!childrenList.length) {
-    return (
-      <div className="card space-y-4 p-6 text-center">
-        <p className="text-(--muted)">{t.noChildren}</p>
-        <Link href="/settings" className="btn btn-primary">
-          {t.goSettings}
-        </Link>
-      </div>
-    );
+    return <EmptyChildren />;
   }
 
   async function saveField(kind: "wake" | "sleep", time: string) {

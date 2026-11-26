@@ -13,7 +13,7 @@ export default defineConfig({
     assets: {
       htmlHandling: "none",
       notFoundHandling: "none",
-      runWorkerFirst: ["/*", "!/_next/static/*", "!/*/_next/static/*"],
+      runWorkerFirst: ["/*", "!/_next/static/*", "!/*/_next/static/*"]
     },
     triggers: [triggers.scheduled({ schedule: "*/10 * * * *" })],
     env: {
@@ -28,8 +28,8 @@ export default defineConfig({
       QWEN_BASE_URL: bindings.text("https://dashscope.aliyuncs.com/compatible-mode/v1"),
       VAPID_PUBLIC_KEY: bindings.secret(),
       VAPID_PRIVATE_KEY: bindings.secret(),
-      VAPID_SUBJECT: bindings.text("mailto:admin@example.com"),
-      CRON_SECRET: bindings.secret(),
-    },
-  }),
+      VAPID_SUBJECT: bindings.text("mailto:cp3hnu@gmail.com"),
+      CRON_SECRET: bindings.secret()
+    }
+  })
 });
