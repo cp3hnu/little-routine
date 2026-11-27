@@ -756,6 +756,42 @@ a {
   transform: translateY(-1px);
 }
 
+.auth-password-wrap {
+  position: relative;
+}
+
+.auth-input-password {
+  padding-right: 3rem;
+}
+
+.auth-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.55rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.auth-password-toggle:hover {
+  color: var(--ink);
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+
+.auth-password-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
 .auth-error {
   margin: 0;
   padding: 0.7rem 0.9rem;
