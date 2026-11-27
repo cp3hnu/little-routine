@@ -339,6 +339,10 @@ A: 首次用 `--secrets-file`；之后在 Dashboard 或 `cf workers secrets upda
 **Q: GitHub 接上了但构建失败 / 用了 wrangler？**  
 A: 清空 Build command，Deploy 改为 `npm run deploy`。
 
+**Q: Workers Builds 报 `EALLOWREMOTE` / `Refusing to fetch ... npmmirror`？**  
+A: 本机若用过淘宝镜像，`package-lock.json` 里的 `resolved` 会指向 `registry.npmmirror.com`。Cloudflare 构建禁止拉取这类 remote 包。  
+处理：项目根目录保留 `.npmrc`（`registry=https://registry.npmjs.org/`），并把 lockfile 里的 npmmirror 地址全部换成 `registry.npmjs.org` 后重新 push。本机以后在本仓库执行 `npm install` 会走官方源。
+
 **Q: 推送提醒不工作？**  
 A: 确认 VAPID 公私钥成对且与线上一致；站点必须是 HTTPS；移动端尽量安装为 PWA。
 
