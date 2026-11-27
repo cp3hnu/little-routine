@@ -66,12 +66,17 @@ export async function requireUser(): Promise<User> {
 export async function registerUser(input: {
   phone: string;
   password: string;
+  nickname: string;
   familyName?: string;
   locale?: string;
 }) {
   const phone = input.phone.trim();
+  const nickname = input.nickname.trim();
   if (!/^\d{6,20}$/.test(phone)) {
     throw new Error("INVALID_PHONE");
+  }
+  if (nickname.length < 1 || nickname.length > 32) {
+    throw new Error("INVALID_NICKNAME");
   }
   if (input.password.length < 6) {
     throw new Error("WEAK_PASSWORD");
@@ -88,6 +93,7 @@ export async function registerUser(input: {
   await db.insert(users).values({
     id: userId,
     phone,
+    nickname,
     passwordHash,
     locale: input.locale === "en" ? "en" : "zh",
   });

@@ -1,10 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BrandLogo } from "./brand-logo";
 import { useI18n } from "./locale-provider";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
+
+const AUTH_ERROR_KEYS = {
+  PHONE_TAKEN: "phoneTaken",
+  INVALID_CREDENTIALS: "invalidCredentials",
+  MISSING_FIELDS: "missingFields",
+  INVALID_PHONE: "invalidPhone",
+  INVALID_NICKNAME: "invalidNickname",
+  WEAK_PASSWORD: "weakPassword",
+} as const satisfies Record<string, keyof Dictionary>;
+
+function authErrorMessage(code: string | undefined, t: Dictionary) {
+  if (code && code in AUTH_ERROR_KEYS) {
+    return t[AUTH_ERROR_KEYS[code as keyof typeof AUTH_ERROR_KEYS]];
+  }
+  return t.authError;
+}
 
 function EyeIcon({ open }: { open: boolean }) {
   if (open) {
@@ -90,7 +106,7 @@ function PasswordField({
 
 export function AuthForms({ mode }: { mode: "login" | "register" }) {
   const { t, locale } = useI18n();
-  const router = useRouter();
+  const [nickname, setNickname] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -104,9 +120,16 @@ export function AuthForms({ mode }: { mode: "login" | "register" }) {
     e.preventDefault();
     setError("");
 
-    if (!isLogin && password !== confirmPassword) {
-      setError(t.passwordMismatch);
-      return;
+    if (!isLogin) {
+      const trimmed = nickname.trim();
+      if (trimmed.length < 1 || trimmed.length > 32) {
+        setError(t.invalidNickname);
+        return;
+      }
+      if (password !== confirmPassword) {
+        setError(t.passwordMismatch);
+        return;
+      }
     }
 
     setLoading(true);
@@ -114,16 +137,19 @@ export function AuthForms({ mode }: { mode: "login" | "register" }) {
     const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone, password, locale }),
+      body: JSON.stringify(
+        isLogin ? { phone, password, locale } : { phone, password, nickname: nickname.trim(), locale },
+      ),
     });
-    setLoading(false);
     if (!res.ok) {
+      setLoading(false);
       const data = (await res.json()) as { error?: string };
-      setError(data.error || "Error");
+      setError(authErrorMessage(data.error, t));
       return;
     }
-    router.push("/");
-    router.refresh();
+    // Full reload so RootLayout re-reads the session (showNav / user menu).
+    // Soft router.push("/") keeps stale showNav=false and treats "/" as marketing shell.
+    window.location.assign("/");
   }
 
   return (
@@ -143,6 +169,24 @@ export function AuthForms({ mode }: { mode: "login" | "register" }) {
       </div>
 
       <form onSubmit={onSubmit} className="auth-form">
+        {!isLogin ? (
+          <div className="auth-field">
+            <label className="auth-label" htmlFor="auth-nickname">
+              {t.nickname}
+            </label>
+            <input
+              id="auth-nickname"
+              className="auth-input"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              autoComplete="nickname"
+              placeholder={t.nicknamePlaceholder}
+              maxLength={32}
+              required
+            />
+          </div>
+        ) : null}
+
         <div className="auth-field">
           <label className="auth-label" htmlFor="auth-phone">
             {t.phone}

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useI18n } from "./locale-provider";
@@ -187,7 +188,12 @@ export function SettingsPanel({
 
       <section className="card space-y-3 p-5">
         <h2 className="font-semibold">{t.push}</h2>
-        <p className="text-sm text-(--muted)">{t.installHint}</p>
+        <p className="text-sm text-(--muted)">
+          {t.installHint}{" "}
+          <Link href="/help" className="font-semibold text-(--accent) underline-offset-2 hover:underline">
+            {t.viewInstallGuide}
+          </Link>
+        </p>
         <button type="button" className="btn btn-primary" onClick={enablePush}>
           {t.enablePush}
         </button>

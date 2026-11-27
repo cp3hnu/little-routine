@@ -6,6 +6,7 @@ const SCHEMA_SQL = `
 CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,
   phone TEXT NOT NULL UNIQUE,
+  nickname TEXT NOT NULL,
   password_hash TEXT NOT NULL,
   locale TEXT NOT NULL DEFAULT 'zh',
   theme TEXT NOT NULL DEFAULT 'system',
@@ -74,6 +75,11 @@ CREATE TABLE IF NOT EXISTS period_reports (
 
 let schemaReady: Promise<void> | null = null;
 
+const SCHEMA_MIGRATIONS = [
+  // Idempotent: SQLite/D1 errors if the column already exists.
+  `ALTER TABLE users ADD COLUMN nickname TEXT NOT NULL DEFAULT ''`,
+];
+
 export async function ensureSchema(db: D1Database = getEnv().DB) {
   if (!schemaReady) {
     schemaReady = (async () => {
@@ -82,6 +88,13 @@ export async function ensureSchema(db: D1Database = getEnv().DB) {
         .filter(Boolean);
       for (const statement of statements) {
         await db.prepare(statement).run();
+      }
+      for (const statement of SCHEMA_MIGRATIONS) {
+        try {
+          await db.prepare(statement).run();
+        } catch {
+          // Column already present (or table just created with the column).
+        }
       }
     })();
   }

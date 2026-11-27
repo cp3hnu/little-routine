@@ -67,7 +67,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <ThemeProvider>
           <LocaleProvider initialLocale={locale}>
             <PwaRegister />
-            <AppShell showNav={!!user} initialTheme={theme}>
+            <AppShell
+              showNav={!!user}
+              initialTheme={theme}
+              user={user ? { nickname: user.nickname, phone: user.phone } : null}
+            >
               {children}
             </AppShell>
           </LocaleProvider>

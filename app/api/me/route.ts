@@ -12,6 +12,7 @@ export async function GET() {
     user: {
       id: user.id,
       phone: user.phone,
+      nickname: user.nickname,
       locale: user.locale,
       theme: user.theme,
     },

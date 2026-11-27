@@ -6,15 +6,17 @@ export async function POST(request: Request) {
     const body = (await request.json()) as {
       phone?: string;
       password?: string;
+      nickname?: string;
       familyName?: string;
       locale?: string;
     };
-    if (!body.phone || !body.password) {
+    if (!body.phone || !body.password || !body.nickname) {
       return NextResponse.json({ error: "MISSING_FIELDS" }, { status: 400 });
     }
     await registerUser({
       phone: body.phone,
       password: body.password,
+      nickname: body.nickname,
       familyName: body.familyName,
       locale: body.locale,
     });
