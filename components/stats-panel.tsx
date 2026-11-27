@@ -131,7 +131,7 @@ export function StatsPanel({ childrenList }: { childrenList: Child[] }) {
   }, [logs, child]);
 
   if (!childrenList.length) {
-    return <EmptyChildren />;
+    return <EmptyChildren centered />;
   }
 
   const totalDays = daysInMonth(year, month);

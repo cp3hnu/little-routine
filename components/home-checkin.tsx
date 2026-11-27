@@ -94,7 +94,7 @@ export function HomeCheckin({ childrenList }: { childrenList: Child[] }) {
   }, [childrenList, childId]);
 
   if (!childrenList.length) {
-    return <EmptyChildren />;
+    return <EmptyChildren centered />;
   }
 
   async function saveField(kind: "wake" | "sleep", time: string) {

@@ -671,7 +671,7 @@ a {
 
 .auth-hero {
   text-align: center;
-  padding-top: 3.2rem;
+  padding-top: 0.4rem;
 }
 
 .auth-kicker {
@@ -865,9 +865,20 @@ a {
 }
 
 /* —— Empty children —— */
+.empty-children-stage {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0.5rem 0 1rem;
+}
+
 .empty-children {
   position: relative;
   overflow: hidden;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -883,37 +894,104 @@ a {
   animation: auth-enter 0.45s ease both;
 }
 
-.empty-children-orb {
+.brand-logo {
   position: relative;
-  width: 88px;
-  height: 88px;
+  display: inline-block;
+  flex-shrink: 0;
   border-radius: 999px;
   background: radial-gradient(circle at 30% 25%, #ddd6fe, #7c3aed 55%, #4c1d95);
+  box-shadow: 0 10px 24px rgba(91, 33, 182, 0.26);
+}
+
+.brand-logo-sm {
+  width: 1.85rem;
+  height: 1.85rem;
+}
+
+.brand-logo-md {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+.brand-logo-lg {
+  width: 5.5rem;
+  height: 5.5rem;
   box-shadow: 0 16px 36px rgba(91, 33, 182, 0.28);
 }
 
-.empty-children-sun,
-.empty-children-moon {
+.brand-logo-sun,
+.brand-logo-moon {
   position: absolute;
   border-radius: 999px;
 }
 
-.empty-children-sun {
-  width: 18px;
-  height: 18px;
-  top: 22px;
-  left: 22px;
+.brand-logo-sun {
   background: radial-gradient(circle at 35% 35%, #fde68a, #f59e0b 70%);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+}
+
+.brand-logo-moon {
+  background: radial-gradient(circle at 35% 35%, #ede9fe, #8b5cf6 70%);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18);
+}
+
+.brand-logo-sm .brand-logo-sun {
+  width: 0.38rem;
+  height: 0.38rem;
+  top: 0.42rem;
+  left: 0.42rem;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.16);
+}
+
+.brand-logo-sm .brand-logo-moon {
+  width: 0.34rem;
+  height: 0.34rem;
+  right: 0.4rem;
+  bottom: 0.42rem;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.16);
+}
+
+.brand-logo-md .brand-logo-sun {
+  width: 0.55rem;
+  height: 0.55rem;
+  top: 0.62rem;
+  left: 0.62rem;
+}
+
+.brand-logo-md .brand-logo-moon {
+  width: 0.48rem;
+  height: 0.48rem;
+  right: 0.58rem;
+  bottom: 0.62rem;
+}
+
+.brand-logo-lg .brand-logo-sun {
+  width: 1.1rem;
+  height: 1.1rem;
+  top: 1.35rem;
+  left: 1.35rem;
   box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
 }
 
-.empty-children-moon {
-  width: 16px;
-  height: 16px;
-  right: 20px;
-  bottom: 22px;
-  background: radial-gradient(circle at 35% 35%, #ede9fe, #8b5cf6 70%);
+.brand-logo-lg .brand-logo-moon {
+  width: 1rem;
+  height: 1rem;
+  right: 1.25rem;
+  bottom: 1.35rem;
   box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.18);
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.auth-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.55rem;
 }
 
 .empty-children-copy {
@@ -1010,12 +1088,20 @@ a {
 .landing-brand {
   margin: 0;
   display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.landing-brand-text {
+  display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  min-width: 0;
 }
 
 .landing-brand-primary {
-  font-size: clamp(1.85rem, 6vw, 2.45rem);
+  font-size: clamp(1.55rem, 5.2vw, 2.1rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
@@ -1060,16 +1146,16 @@ a {
   animation: landing-glow 8s ease-in-out infinite alternate;
 }
 
+.landing-hero-logo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0.4rem 0 1.1rem;
+}
+
 .landing-hero-orbit {
-  position: absolute;
-  right: 0;
-  top: 0.5rem;
-  width: 5.5rem;
-  height: 5.5rem;
-  border-radius: 999px;
-  border: 1px dashed color-mix(in oklab, var(--border) 80%, transparent);
-  pointer-events: none;
-  opacity: 0.85;
+  display: none;
 }
 
 .landing-orbit-wake,

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { BrandLogo } from "./brand-logo";
 import { useI18n } from "./locale-provider";
 
 export function AuthForms({ mode }: { mode: "login" | "register" }) {
@@ -40,14 +41,12 @@ export function AuthForms({ mode }: { mode: "login" | "register" }) {
       <div className="auth-sky" aria-hidden="true">
         <div className="auth-glow auth-glow-a" />
         <div className="auth-glow auth-glow-b" />
-        <div className="auth-arc">
-          <span className="auth-arc-dot wake" />
-          <span className="auth-arc-line" />
-          <span className="auth-arc-dot sleep" />
-        </div>
       </div>
 
       <div className="auth-hero">
+        <div className="auth-logo-wrap">
+          <BrandLogo size="lg" title={t.appName} />
+        </div>
         <p className="auth-kicker">{isLogin ? t.authKickerLogin : t.authKickerRegister}</p>
         <h1 className="auth-brand">{t.appName}</h1>
         <p className="auth-tagline">{t.tagline}</p>

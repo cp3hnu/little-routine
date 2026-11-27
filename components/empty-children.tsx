@@ -1,26 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import { BrandLogo } from "./brand-logo";
 import { useI18n } from "./locale-provider";
 
 export function EmptyChildren({
   ctaHref = "/settings",
   ctaLabel,
   onCta,
+  centered = false,
 }: {
   ctaHref?: string;
   ctaLabel?: string;
   onCta?: () => void;
+  centered?: boolean;
 }) {
   const { t } = useI18n();
   const label = ctaLabel || t.addChild;
 
-  return (
+  const content = (
     <div className="empty-children">
-      <div className="empty-children-orb" aria-hidden="true">
-        <span className="empty-children-sun" />
-        <span className="empty-children-moon" />
-      </div>
+      <BrandLogo size="lg" />
 
       <div className="empty-children-copy">
         <p className="empty-children-kicker">{t.emptyChildrenKicker}</p>
@@ -39,4 +39,7 @@ export function EmptyChildren({
       )}
     </div>
   );
+
+  if (!centered) return content;
+  return <div className="empty-children-stage">{content}</div>;
 }

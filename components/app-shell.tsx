@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { BrandLogo } from "./brand-logo";
 import { useI18n } from "./locale-provider";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
@@ -94,13 +95,14 @@ export function AppShell({
   return (
     <div className="mx-auto flex min-h-screen max-w-3xl flex-col px-4 pb-28 pt-4">
       <header className="mb-4 flex items-center justify-between gap-3">
-        <div className="min-w-0">
+        <div className="brand-mark min-w-0">
+          <BrandLogo size="sm" title={t.appName} />
           <p className="truncate text-lg font-bold tracking-tight">{t.appName}</p>
         </div>
         {toggles}
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main className="flex flex-1 flex-col">{children}</main>
 
       {showNav ? (
         <nav className="fixed inset-x-0 bottom-0 border-t border-(--border) bg-[color-mix(in_oklab,var(--bg-elevated)_90%,transparent)] backdrop-blur-md">

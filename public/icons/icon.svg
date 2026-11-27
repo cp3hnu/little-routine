@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" ry="112" fill="#7c3aed"/>
-  <g fill="#ffffff" transform="translate(182 256)">
-    <circle r="40"/>
-    <rect x="-7" y="-90" width="14" height="26" rx="7"/>
-    <rect x="-7" y="-90" width="14" height="26" rx="7" transform="rotate(60)"/>
-    <rect x="-7" y="-90" width="14" height="26" rx="7" transform="rotate(120)"/>
-    <rect x="-7" y="-90" width="14" height="26" rx="7" transform="rotate(180)"/>
-    <rect x="-7" y="-90" width="14" height="26" rx="7" transform="rotate(240)"/>
-    <rect x="-7" y="-90" width="14" height="26" rx="7" transform="rotate(300)"/>
-  </g>
-  <path fill="#ffffff" d="M 300 186
-    A 84 84 0 1 1 300 326
-    A 76 76 0 1 0 300 186 Z"/>
+  <defs>
+    <radialGradient id="orb" cx="30%" cy="25%" r="75%">
+      <stop offset="0%" stop-color="#ddd6fe"/>
+      <stop offset="55%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </radialGradient>
+    <radialGradient id="sun" cx="35%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </radialGradient>
+    <radialGradient id="moon" cx="35%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#ede9fe"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </radialGradient>
+  </defs>
+  <circle cx="256" cy="256" r="256" fill="url(#orb)"/>
+  <circle cx="176" cy="176" r="42" fill="url(#sun)"/>
+  <circle cx="176" cy="176" r="58" fill="#f59e0b" opacity="0.16"/>
+  <circle cx="336" cy="336" r="38" fill="url(#moon)"/>
+  <circle cx="336" cy="336" r="54" fill="#8b5cf6" opacity="0.16"/>
 </svg>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n/dictionaries";
 import { getLandingCopy } from "@/lib/i18n/landing";
 import { buildWebAppJsonLd } from "@/lib/seo";
+import { BrandLogo } from "@/components/brand-logo";
 import { HtmlLang } from "@/components/html-lang";
 
 export function LandingPage({ locale }: { locale: Locale }) {
@@ -19,8 +20,11 @@ export function LandingPage({ locale }: { locale: Locale }) {
 
       <header className="landing-top">
         <p className="landing-brand">
-          <span className="landing-brand-primary">{t.brand}</span>
-          <span className="landing-brand-secondary">{t.brandEn}</span>
+          <BrandLogo size="sm" title={t.brand} />
+          <span className="landing-brand-text">
+            <span className="landing-brand-primary">{t.brand}</span>
+            <span className="landing-brand-secondary">{t.brandEn}</span>
+          </span>
         </p>
         <Link href={t.langHref} className="landing-lang" hrefLang={locale === "zh" ? "en" : "zh-CN"}>
           {t.langSwitch}
@@ -29,9 +33,8 @@ export function LandingPage({ locale }: { locale: Locale }) {
 
       <section className="landing-hero" aria-labelledby="landing-headline">
         <div className="landing-hero-glow" aria-hidden />
-        <div className="landing-hero-orbit" aria-hidden>
-          <span className="landing-orbit-wake" />
-          <span className="landing-orbit-sleep" />
+        <div className="landing-hero-logo">
+          <BrandLogo size="lg" title={t.brand} />
         </div>
         <h1 id="landing-headline" className="landing-headline">
           {t.headline}
